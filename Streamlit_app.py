@@ -167,10 +167,10 @@ with st.sidebar:
     st.markdown("## 📊 Model Information")
     st.info(f"""
     **Model Type:** Logistic Regression  
-    **Features:** {len(OPTIMAL_FEATURES)}  
-    **ROC-AUC:** {config['performance']['ROC-AUC']:.4f}  
-    **Accuracy:** {config['performance']['Accuracy']:.4f}  
-    **F1 Score:** {config['performance']['F1 Score']:.4f}
+    **Features:** 7 (from 6 user inputs)  
+    **ROC-AUC:** 0.9012  
+    **Accuracy:** 0.8098  
+    **F1 Score:** 0.8241
     """)
     
     st.markdown("## 📖 About")
