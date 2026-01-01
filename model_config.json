@@ -1,0 +1,32 @@
+{
+    "features": [
+        "cp_atypical angina",
+        "sex_Male",
+        "fbs_missing",
+        "slope_flat",
+        "cp_non-anginal",
+        "exang_True",
+        "oldpeak"
+    ],
+    "model_path": "heart_disease_model_7features.pkl",
+    "scaler_path": "scaler_7features.pkl",
+    "performance": {
+        "ROC-AUC": 0.9012434241989479,
+        "Accuracy": 0.8097826086956522,
+        "Precision": 0.845360824742268,
+        "Recall": 0.803921568627451,
+        "F1 Score": 0.8241206030150754
+    },
+    "coefficients": {
+        "cp_atypical angina": -0.7668589627277169,
+        "sex_Male": 0.6156785374892607,
+        "fbs_missing": 0.47046218841538057,
+        "slope_flat": 0.41966856269528885,
+        "cp_non-anginal": -0.4584840443916151,
+        "exang_True": 0.5506633891623103,
+        "oldpeak": 0.4424150348377455
+    },
+    "intercept": 0.11921339704402671,
+    "training_samples": 736,
+    "test_samples": 184
+}

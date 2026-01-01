@@ -1,0 +1,15 @@
+feature,description,values
+origin,Place of study / dataset origin,"Cleveland, Hungary, Switzerland, VA"
+sex,Biological sex,"Male, Female"
+cp,Chest pain type,"typical angina, atypical angina, non-anginal, asymptomatic"
+trestbps,Resting blood pressure (mm Hg on admission),
+chol,Serum cholesterol (mg/dL),
+fbs,Fasting blood sugar > 120 mg/dl,"True, False"
+restecg,Resting electrocardiographic results,"normal, stt abnormality, lv hypertrophy"
+thalach,Maximum heart rate achieved,
+exang,Exercise-induced angina,"True, False"
+oldpeak,ST depression induced by exercise relative to rest,
+slope,Slope of the peak exercise ST segment,"upsloping, flat, downsloping"
+ca,Number of major vessels (0-3) colored by fluoroscopy,"0, 1, 2, 3"
+thal,Thallium stress test result,"normal, fixed defect, reversible defect"
+num,"Presence of heart disease (0 = no, 1–4 = yes)",

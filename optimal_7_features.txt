@@ -1,0 +1,10 @@
+OPTIMAL 7 FEATURES FOR HEART DISEASE PREDICTION
+============================================================
+
+1. cp_atypical angina
+2. sex_Male
+3. fbs_missing
+4. slope_flat
+5. cp_non-anginal
+6. exang_True
+7. oldpeak

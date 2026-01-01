@@ -1,0 +1,43 @@
+HEART DISEASE PREDICTION MODEL - 7-FEATURE OPTIMIZED
+================================================================================
+
+MODEL INFORMATION
+--------------------------------------------------------------------------------
+Model Type: Logistic Regression
+Number of Features: 7
+Training Samples: 736
+Test Samples: 184
+
+OPTIMAL FEATURES
+--------------------------------------------------------------------------------
+1. cp_atypical angina
+2. sex_Male
+3. fbs_missing
+4. slope_flat
+5. cp_non-anginal
+6. exang_True
+7. oldpeak
+
+TEST SET PERFORMANCE
+--------------------------------------------------------------------------------
+ROC-AUC        : 0.9012
+Accuracy       : 0.8098
+Precision      : 0.8454
+Recall         : 0.8039
+F1 Score       : 0.8241
+
+CROSS-VALIDATION
+--------------------------------------------------------------------------------
+5-Fold CV ROC-AUC: 0.8676 ± 0.0314
+
+FEATURE COEFFICIENTS
+--------------------------------------------------------------------------------
+cp_atypical angina                -0.7669 ↓
+sex_Male                           0.6157 ↑
+exang_True                         0.5507 ↑
+fbs_missing                        0.4705 ↑
+cp_non-anginal                    -0.4585 ↓
+oldpeak                            0.4424 ↑
+slope_flat                         0.4197 ↑
+
+Intercept: 0.1192
