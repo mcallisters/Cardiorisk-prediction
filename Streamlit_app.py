@@ -31,9 +31,19 @@ st.set_page_config(
 
 st.markdown("""
 <style>
-    /* Increase base font size for the entire app */
+    /* Force larger base font size */
+    html, body, [class*="css"], .stApp {
+        font-size: 16px !important;
+    }
+    
+    /* Main content area */
     .main .block-container {
-        font-size: 1.1rem;
+        font-size: 16px !important;
+    }
+    
+    /* All paragraph text */
+    p {
+        font-size: 16px !important;
     }
     
     /* Headers remain the same */
@@ -51,38 +61,60 @@ st.markdown("""
         margin-bottom: 2rem;
     }
     
-    /* Increase font size for labels and text */
-    .stSelectbox label, .stNumberInput label {
-        font-size: 1.1rem !important;
+    /* Force input labels to be larger */
+    label, .stSelectbox label, .stNumberInput label, .stRadio label {
+        font-size: 16px !important;
     }
     
-    /* Increase dropdown and input text size */
-    .stSelectbox div[data-baseweb="select"] > div,
-    .stNumberInput input {
-        font-size: 1.05rem !important;
+    /* Force dropdown text to be larger */
+    div[data-baseweb="select"] span,
+    div[data-baseweb="select"] div {
+        font-size: 16px !important;
     }
     
-    /* Increase button text size */
-    .stButton button {
-        font-size: 1.05rem !important;
+    /* Force input field text */
+    input, select, textarea {
+        font-size: 16px !important;
     }
     
-    /* Increase metric text size */
-    .stMetric label {
-        font-size: 1.05rem !important;
-    }
-    .stMetric div[data-testid="stMetricValue"] {
-        font-size: 1.8rem !important;
+    /* Force button text */
+    button, .stButton button p {
+        font-size: 16px !important;
     }
     
-    /* Increase expander text size */
-    .streamlit-expanderHeader {
-        font-size: 1.05rem !important;
+    /* Force all divs (catches most text) */
+    div {
+        font-size: 16px !important;
     }
     
-    /* Increase sidebar text */
-    .css-1d391kg, [data-testid="stSidebar"] {
-        font-size: 1.05rem;
+    /* Markdown content */
+    .stMarkdown {
+        font-size: 16px !important;
+    }
+    
+    /* Info boxes, warnings, etc */
+    .stAlert, .stInfo, .stWarning, .stSuccess, .stError {
+        font-size: 16px !important;
+    }
+    
+    /* Expander content */
+    .streamlit-expanderContent, .streamlit-expanderHeader {
+        font-size: 16px !important;
+    }
+    
+    /* Sidebar */
+    section[data-testid="stSidebar"] * {
+        font-size: 16px !important;
+    }
+    
+    /* Metric values stay prominent */
+    [data-testid="stMetricValue"] {
+        font-size: 2rem !important;
+    }
+    
+    /* Tab labels */
+    button[data-baseweb="tab"] {
+        font-size: 17px !important;
     }
     
     .metric-card {
@@ -94,28 +126,24 @@ st.markdown("""
     }
     .stAlert {
         margin-top: 1rem;
-        font-size: 1.05rem;
     }
     .risk-low {
         background-color: #d4edda;
         border-left: 5px solid #28a745;
         padding: 1rem;
         border-radius: 5px;
-        font-size: 1.1rem;
     }
     .risk-moderate {
         background-color: #fff3cd;
         border-left: 5px solid #ffc107;
         padding: 1rem;
         border-radius: 5px;
-        font-size: 1.1rem;
     }
     .risk-high {
         background-color: #f8d7da;
         border-left: 5px solid #dc3545;
         padding: 1rem;
         border-radius: 5px;
-        font-size: 1.1rem;
     }
 </style>
 """, unsafe_allow_html=True)
