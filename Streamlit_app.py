@@ -76,6 +76,24 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # ===============================================================================
+# INITIALIZE SESSION STATE
+# ===============================================================================
+
+# Initialize session state for form fields
+if 'chest_pain_type' not in st.session_state:
+    st.session_state.chest_pain_type = "Typical Angina"
+if 'sex' not in st.session_state:
+    st.session_state.sex = "Female"
+if 'fbs_status' not in st.session_state:
+    st.session_state.fbs_status = "Available"
+if 'slope_type' not in st.session_state:
+    st.session_state.slope_type = "Upsloping"
+if 'exang' not in st.session_state:
+    st.session_state.exang = "No"
+if 'oldpeak' not in st.session_state:
+    st.session_state.oldpeak = 1.0
+
+# ===============================================================================
 # LOAD MODEL AND CONFIGURATION
 # ===============================================================================
 
@@ -150,6 +168,24 @@ def predict_heart_disease(patient_data):
         'feature_contributions': feature_contributions
     }
 
+def load_high_risk_example():
+    """Load high risk example into session state"""
+    st.session_state.chest_pain_type = "Atypical Angina"
+    st.session_state.sex = "Male"
+    st.session_state.fbs_status = "Available"
+    st.session_state.slope_type = "Flat"
+    st.session_state.exang = "Yes"
+    st.session_state.oldpeak = 2.5
+
+def load_low_risk_example():
+    """Load low risk example into session state"""
+    st.session_state.chest_pain_type = "Non-anginal Pain"
+    st.session_state.sex = "Female"
+    st.session_state.fbs_status = "Available"
+    st.session_state.slope_type = "Upsloping"
+    st.session_state.exang = "No"
+    st.session_state.oldpeak = 0.2
+
 # ===============================================================================
 # MAIN APP
 # ===============================================================================
@@ -167,7 +203,8 @@ with st.sidebar:
     st.markdown("## 📊 Model Information")
     st.info(f"""
     **Model Type:** Logistic Regression  
-    **Features:** 7 (from 6 user inputs)  
+    **Input Fields:** 6  
+    **Model Features:** 7 (Chest Pain creates 2 binary features with a single input)  
     **ROC-AUC:** 0.9012  
     **Accuracy:** 0.8098  
     **F1 Score:** 0.8241
@@ -207,28 +244,25 @@ with tab1:
         chest_pain_type = st.selectbox(
             "Chest Pain Type",
             ["Typical Angina", "Atypical Angina", "Non-anginal Pain", "Asymptomatic"],
+            key="chest_pain_type",
             help="Type of chest pain experienced by the patient"
         )
-        
-        # Convert chest pain to binary features
-        cp_atypical = 1 if chest_pain_type == "Atypical Angina" else 0
-        cp_non_anginal = 1 if chest_pain_type == "Non-anginal Pain" else 0
         
         # Sex
         sex = st.selectbox(
             "Sex",
             ["Female", "Male"],
+            key="sex",
             help="Biological sex of the patient"
         )
-        sex_male = 1 if sex == "Male" else 0
         
         # FBS Missing
         fbs_status = st.selectbox(
             "Fasting Blood Sugar Data",
             ["Available", "Missing"],
+            key="fbs_status",
             help="Whether fasting blood sugar measurement is available"
         )
-        fbs_missing = 1 if fbs_status == "Missing" else 0
         
     with col2:
         st.markdown("#### ECG & Exercise Features")
@@ -237,25 +271,26 @@ with tab1:
         slope_type = st.selectbox(
             "ST Slope (ECG)",
             ["Upsloping", "Flat", "Downsloping"],
+            key="slope_type",
             help="Slope of the ST segment on ECG during exercise"
         )
-        slope_flat = 1 if slope_type == "Flat" else 0
         
         # Exercise Induced Angina
         exang = st.selectbox(
             "Exercise Induced Angina",
             ["No", "Yes"],
+            key="exang",
             help="Whether exercise triggers angina symptoms"
         )
-        exang_true = 1 if exang == "Yes" else 0
         
         # Oldpeak
         oldpeak = st.number_input(
             "ST Depression (oldpeak)",
             min_value=0.0,
             max_value=10.0,
-            value=1.0,
+            value=st.session_state.oldpeak,
             step=0.1,
+            key="oldpeak",
             help="ST depression induced by exercise relative to rest (typically 0-6)"
         )
     
@@ -265,39 +300,25 @@ with tab1:
     
     with col1:
         if st.button("📋 Load High Risk Example", use_container_width=True):
-            st.session_state.example = "high_risk"
+            load_high_risk_example()
             st.rerun()
     
     with col2:
         if st.button("📋 Load Low Risk Example", use_container_width=True):
-            st.session_state.example = "low_risk"
+            load_low_risk_example()
             st.rerun()
-    
-    # Handle examples
-    if 'example' in st.session_state:
-        if st.session_state.example == "high_risk":
-            chest_pain_type = "Atypical Angina"
-            sex = "Male"
-            fbs_status = "Available"
-            slope_type = "Flat"
-            exang = "Yes"
-            oldpeak = 2.5
-            cp_atypical, cp_non_anginal = 1, 0
-            sex_male, fbs_missing, slope_flat, exang_true = 1, 0, 1, 1
-        elif st.session_state.example == "low_risk":
-            chest_pain_type = "Non-anginal Pain"
-            sex = "Female"
-            fbs_status = "Available"
-            slope_type = "Upsloping"
-            exang = "No"
-            oldpeak = 0.2
-            cp_atypical, cp_non_anginal = 0, 1
-            sex_male, fbs_missing, slope_flat, exang_true = 0, 0, 0, 0
-        del st.session_state.example
     
     # Predict button
     st.markdown("---")
     if st.button("🔍 Predict Heart Disease Risk", type="primary", use_container_width=True):
+        # Convert inputs to binary features
+        cp_atypical = 1 if chest_pain_type == "Atypical Angina" else 0
+        cp_non_anginal = 1 if chest_pain_type == "Non-anginal Pain" else 0
+        sex_male = 1 if sex == "Male" else 0
+        fbs_missing = 1 if fbs_status == "Missing" else 0
+        slope_flat = 1 if slope_type == "Flat" else 0
+        exang_true = 1 if exang == "Yes" else 0
+        
         # Prepare patient data
         patient_data = {
             'cp_atypical angina': cp_atypical,
@@ -365,6 +386,7 @@ with tab1:
         
         # Feature contributions
         st.markdown("### Feature Contributions")
+        st.info("ℹ️ Note: 7 features are considered because 'Chest Pain Type' generates 2 separate binary features (atypical angina and non-anginal pain).")
         
         contributions_df = pd.DataFrame([
             {'Feature': k, 'Contribution': v}
@@ -613,14 +635,21 @@ with tab4:
     
     #### 4. Model Features
     
-    The model uses these 7 features:
+    The model uses 7 features derived from 6 input fields:
     
-    1. **Chest Pain Type**: Atypical angina, non-anginal, typical, or asymptomatic
-    2. **Sex**: Male or female
-    3. **Fasting Blood Sugar**: Whether data is available or missing
-    4. **ST Slope**: Flat, upsloping, or downsloping
-    5. **Exercise Induced Angina**: Yes or no
+    1. **Chest Pain Type** → Creates 2 binary features:
+       - Atypical angina (yes/no)
+       - Non-anginal pain (yes/no)
+    2. **Sex**: Male (yes/no)
+    3. **Fasting Blood Sugar**: Data missing (yes/no)
+    4. **ST Slope**: Flat slope (yes/no)
+    5. **Exercise Induced Angina**: Yes/no
     6. **ST Depression (oldpeak)**: Continuous value (0-6 typical)
+    
+    **Why 7 features from 6 inputs?**  
+    Chest Pain Type has 4 options (Typical Angina, Atypical Angina, Non-anginal, Asymptomatic). 
+    The model uses 2 of these as separate predictive features, which is why you see 7 total features 
+    in the Feature Contributions chart even though you only fill in 6 input fields.
     
     #### 5. Important Notes
     
