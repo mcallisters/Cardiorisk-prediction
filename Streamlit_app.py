@@ -168,23 +168,7 @@ def predict_heart_disease(patient_data):
         'feature_contributions': feature_contributions
     }
 
-def load_high_risk_example():
-    """Load high risk example into session state"""
-    st.session_state.chest_pain_type = "Atypical Angina"
-    st.session_state.sex = "Male"
-    st.session_state.fbs_status = "Available"
-    st.session_state.slope_type = "Flat"
-    st.session_state.exang = "Yes"
-    st.session_state.oldpeak = 2.5
 
-def load_low_risk_example():
-    """Load low risk example into session state"""
-    st.session_state.chest_pain_type = "Non-anginal Pain"
-    st.session_state.sex = "Female"
-    st.session_state.fbs_status = "Available"
-    st.session_state.slope_type = "Upsloping"
-    st.session_state.exang = "No"
-    st.session_state.oldpeak = 0.2
 
 # ===============================================================================
 # MAIN APP
@@ -204,7 +188,7 @@ with st.sidebar:
     st.info(f"""
     **Model Type:** Logistic Regression  
     **Input Fields:** 6  
-    **Model Features:** 7 (Chest Pain creates 2 binary features with a single input)  
+    **Model Features:** 7 (Chest Pain creates 2)  
     **ROC-AUC:** 0.9012  
     **Accuracy:** 0.8098  
     **F1 Score:** 0.8241
@@ -234,6 +218,31 @@ tab1, tab2, tab3, tab4 = st.tabs(["🔮 Prediction", "📊 Model Insights", "�
 
 with tab1:
     st.markdown("### Enter Patient Information")
+    
+    # Example buttons at the top
+    col1, col2, col3 = st.columns([1, 1, 2])
+    
+    with col1:
+        if st.button("📋 Load High Risk Example", use_container_width=True):
+            st.session_state.chest_pain_type = "Atypical Angina"
+            st.session_state.sex = "Male"
+            st.session_state.fbs_status = "Available"
+            st.session_state.slope_type = "Flat"
+            st.session_state.exang = "Yes"
+            st.session_state.oldpeak = 2.5
+            st.rerun()
+    
+    with col2:
+        if st.button("📋 Load Low Risk Example", use_container_width=True):
+            st.session_state.chest_pain_type = "Non-anginal Pain"
+            st.session_state.sex = "Female"
+            st.session_state.fbs_status = "Available"
+            st.session_state.slope_type = "Upsloping"
+            st.session_state.exang = "No"
+            st.session_state.oldpeak = 0.2
+            st.rerun()
+    
+    st.markdown("---")
     
     col1, col2 = st.columns(2)
     
@@ -293,20 +302,6 @@ with tab1:
             key="oldpeak",
             help="ST depression induced by exercise relative to rest (typically 0-6)"
         )
-    
-    # Example buttons
-    st.markdown("---")
-    col1, col2, col3 = st.columns([1, 1, 2])
-    
-    with col1:
-        if st.button("📋 Load High Risk Example", use_container_width=True):
-            load_high_risk_example()
-            st.rerun()
-    
-    with col2:
-        if st.button("📋 Load Low Risk Example", use_container_width=True):
-            load_low_risk_example()
-            st.rerun()
     
     # Predict button
     st.markdown("---")
@@ -386,7 +381,7 @@ with tab1:
         
         # Feature contributions
         st.markdown("### Feature Contributions")
-        st.info("ℹ️ Note: 7 features are considered because 'Chest Pain Type' generates 2 separate binary features (atypical angina and non-anginal pain).")
+        st.info("ℹ️ Note: 7 features are shown because 'Chest Pain Type' generates 2 separate binary features (atypical angina and non-anginal pain).")
         
         contributions_df = pd.DataFrame([
             {'Feature': k, 'Contribution': v}
