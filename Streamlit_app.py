@@ -53,6 +53,20 @@ st.markdown("""
         font-family: 'Courier New', Courier, monospace !important;
     }
     
+    /* Fix expander styling to prevent arrow overlap */
+    .streamlit-expanderHeader {
+        background-color: #f0f2f6;
+        border-radius: 5px;
+        padding: 0.5rem 1rem !important;
+        margin-bottom: 0.5rem;
+    }
+    
+    .streamlit-expanderContent {
+        border-left: 2px solid #f0f2f6;
+        padding-left: 1rem;
+        margin-top: 0.5rem;
+    }
+    
     .metric-card {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         padding: 1.5rem;
