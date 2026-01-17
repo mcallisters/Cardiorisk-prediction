@@ -24,7 +24,7 @@
 
 ## 🚀 Live Demo
 
-**Try it now**: [CardioRisk Prediction App](https://cardiorisk-prediction.streamlit.app)
+**Try it now**: [CardioRisk Prediction App](https://cardiorisk-prediction-vsbew4ugrksywonqon3tty.streamlit.app/)
 
 <img src="https://via.placeholder.com/800x400/667eea/ffffff?text=App+Screenshot" alt="App Screenshot" width="100%">
 
