@@ -531,24 +531,26 @@ with tab3:
     st.info("Upload a CSV file with patient data to get predictions for multiple patients at once.")
     
     # Show expected format
-    with st.expander("📋 View Expected CSV Format"):
-        example_df = pd.DataFrame([{
-            'cp_atypical angina': 1,
-            'sex_Male': 1,
-            'fbs_missing': 0,
-            'slope_flat': 1,
-            'cp_non-anginal': 0,
-            'exang_True': 1,
-            'oldpeak': 2.5
-        }])
-        st.dataframe(example_df)
-        
-        st.download_button(
-            label="📥 Download Template CSV",
-            data=example_df.to_csv(index=False),
-            file_name="heart_disease_template.csv",
-            mime="text/csv"
-        )
+    st.markdown("#### 📋 Expected CSV Format")
+    example_df = pd.DataFrame([{
+        'cp_atypical angina': 1,
+        'sex_Male': 1,
+        'fbs_missing': 0,
+        'slope_flat': 1,
+        'cp_non-anginal': 0,
+        'exang_True': 1,
+        'oldpeak': 2.5
+    }])
+    st.dataframe(example_df)
+    
+    st.download_button(
+        label="📥 Download Template CSV",
+        data=example_df.to_csv(index=False),
+        file_name="heart_disease_template.csv",
+        mime="text/csv"
+    )
+    
+    st.markdown("---")
     
     # File upload
     uploaded_file = st.file_uploader("Upload CSV file", type=['csv'])
