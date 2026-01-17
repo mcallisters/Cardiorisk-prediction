@@ -31,6 +31,12 @@ st.set_page_config(
 
 st.markdown("""
 <style>
+    /* Increase base font size for the entire app */
+    .main .block-container {
+        font-size: 1.1rem;
+    }
+    
+    /* Headers remain the same */
     .main-header {
         font-size: 3rem;
         font-weight: bold;
@@ -44,6 +50,41 @@ st.markdown("""
         text-align: center;
         margin-bottom: 2rem;
     }
+    
+    /* Increase font size for labels and text */
+    .stSelectbox label, .stNumberInput label {
+        font-size: 1.1rem !important;
+    }
+    
+    /* Increase dropdown and input text size */
+    .stSelectbox div[data-baseweb="select"] > div,
+    .stNumberInput input {
+        font-size: 1.05rem !important;
+    }
+    
+    /* Increase button text size */
+    .stButton button {
+        font-size: 1.05rem !important;
+    }
+    
+    /* Increase metric text size */
+    .stMetric label {
+        font-size: 1.05rem !important;
+    }
+    .stMetric div[data-testid="stMetricValue"] {
+        font-size: 1.8rem !important;
+    }
+    
+    /* Increase expander text size */
+    .streamlit-expanderHeader {
+        font-size: 1.05rem !important;
+    }
+    
+    /* Increase sidebar text */
+    .css-1d391kg, [data-testid="stSidebar"] {
+        font-size: 1.05rem;
+    }
+    
     .metric-card {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         padding: 1.5rem;
@@ -53,24 +94,28 @@ st.markdown("""
     }
     .stAlert {
         margin-top: 1rem;
+        font-size: 1.05rem;
     }
     .risk-low {
         background-color: #d4edda;
         border-left: 5px solid #28a745;
         padding: 1rem;
         border-radius: 5px;
+        font-size: 1.1rem;
     }
     .risk-moderate {
         background-color: #fff3cd;
         border-left: 5px solid #ffc107;
         padding: 1rem;
         border-radius: 5px;
+        font-size: 1.1rem;
     }
     .risk-high {
         background-color: #f8d7da;
         border-left: 5px solid #dc3545;
         padding: 1rem;
         border-radius: 5px;
+        font-size: 1.1rem;
     }
 </style>
 """, unsafe_allow_html=True)
