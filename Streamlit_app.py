@@ -211,7 +211,7 @@ with st.sidebar:
     st.info(f"""
     **Model Type:** Logistic Regression  
     **Input Fields:** 6  
-    **Model Features:** 7 (Chest Pain creates 2)  
+    **Model Features:** 7 (Chest Pain Type creates 2)  
     **ROC-AUC:** 0.9012  
     **Accuracy:** 0.8098  
     **F1 Score:** 0.8241
