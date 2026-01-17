@@ -500,10 +500,11 @@ with tab2:
     }
     
     for feature, info in feature_info.items():
-        with st.expander(f"**{feature}** ({info['impact']})"):
-            st.write(f"**Description:** {info['description']}")
-            st.write(f"**Clinical Significance:** {info['clinical']}")
-            st.write(f"**Coefficient:** {COEFFICIENTS[feature]:.4f}")
+        st.markdown(f"#### **{feature}** ({info['impact']})")
+        st.write(f"**Description:** {info['description']}")
+        st.write(f"**Clinical Significance:** {info['clinical']}")
+        st.write(f"**Coefficient:** {COEFFICIENTS[feature]:.4f}")
+        st.markdown("---")
     
     st.markdown("### Model Performance Metrics")
     
